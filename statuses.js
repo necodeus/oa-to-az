@@ -108,6 +108,10 @@ function makeEl(tag, className, text) {
   return el;
 }
 
+// Odstęp między kolejnymi żądaniami do AZ, żeby nie zalewać serwera.
+const THROTTLE_MS = 300;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function bgFetch(url, credentials = "omit") {
   const res = await browser.runtime.sendMessage({ type: "fetch", url, credentials });
   if (!res) throw new Error("brak odpowiedzi ze skryptu tła");
@@ -221,7 +225,9 @@ async function loadOaStatuses() {
   } catch (err) {
     console.warn("Nie udało się pobrać nicku OA:", err);
   }
-  for (const code of OA_STATUS_CODES) {
+  for (let idx = 0; idx < OA_STATUS_CODES.length; idx += 1) {
+    const code = OA_STATUS_CODES[idx];
+    if (idx > 0) await sleep(THROTTLE_MS);
     const resp = await bgFetch(`${OA_BASE}/anime_list/${oaId}/${code}`, "omit");
     if (!resp.ok) throw new Error(`OA HTTP ${resp.status}`);
     const doc = new DOMParser().parseFromString(resp.text, "text/html");
@@ -256,7 +262,9 @@ async function loadAzStatuses() {
     { key: "watching", path: "watching" },
     { key: "plans", path: "plans" },
   ];
-  for (const { key, path } of lists) {
+  for (let idx = 0; idx < lists.length; idx += 1) {
+    const { key, path } = lists[idx];
+    if (idx > 0) await sleep(THROTTLE_MS);
     const resp = await bgFetch(
       `${AZ_BASE}/user/${encodeURIComponent(azUser)}/${path}`,
       "include",
@@ -666,6 +674,7 @@ async function migrateTransferable() {
       failed += 1;
       console.error(`Nie udało się ustawić ${row.azSlug}:`, err);
     }
+    if (i < rows.length - 1) await sleep(THROTTLE_MS);
   }
 
   migrationRunning = false;

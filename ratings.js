@@ -62,6 +62,10 @@ function makeEl(tag, className, text) {
   return el;
 }
 
+// Odstęp między kolejnymi żądaniami zapisu do AZ, żeby nie zalewać serwera.
+const THROTTLE_MS = 300;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function bgFetch(url, credentials = "omit") {
   const res = await browser.runtime.sendMessage({ type: "fetch", url, credentials });
   if (!res) throw new Error("brak odpowiedzi ze skryptu tła");
@@ -624,6 +628,7 @@ async function migrateTransferable() {
       failed += 1;
       console.error(`Nie udało się przenieść ${row.azSlug}:`, err);
     }
+    if (i < rows.length - 1) await sleep(THROTTLE_MS);
   }
 
   migrationRunning = false;
