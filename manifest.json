@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "oa-to-az",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Przenieś listę anime z OgladajAnime na AnimeZone.",
   "permissions": [
     "https://ogladajanime.pl/*",
