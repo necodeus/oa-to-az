@@ -58,7 +58,7 @@ npx --yes web-ext sign \
   --channel=unlisted \
   --api-key="$AMO_JWT_ISSUER" \
   --api-secret="$AMO_JWT_SECRET" \
-  --ignore-files "$DIST_DIR/**" "$UPDATES_FILE" "release.sh" "README.md" "index.html" ".env.example"
+  --ignore-files "$DIST_DIR/**" "$UPDATES_FILE" "release.sh" "README.md" "index.html" ".env" ".env.example"
 
 # --- Zebranie podpisanego pliku ----------------------------------------------
 SIGNED_XPI="$(ls -t web-ext-artifacts/*.xpi | head -n1)"

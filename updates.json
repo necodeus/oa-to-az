@@ -1,7 +1,13 @@
 {
   "addons": {
     "{f91ad554-18a7-4082-89aa-eb31bc15043f}": {
-      "updates": []
+      "updates": [
+        {
+          "version": "1.0",
+          "update_link": "https://addons.necodeo.com/oa-to-az-1.0.xpi",
+          "update_hash": "sha256:f02d9e229d6969e039602f0fd80ff05af34bfa67bb95b78b8336210d31cf50bb"
+        }
+      ]
     }
   }
 }

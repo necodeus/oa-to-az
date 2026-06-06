@@ -1,6 +1,7 @@
 # Artefakty buildu/podpisywania (web-ext)
 dist/
 web-ext-artifacts/
+.amo-upload-uuid
 
 # Zależności
 node_modules/
