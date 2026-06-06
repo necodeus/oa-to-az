@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "oa-to-az",
+  "version": "1.0",
+  "description": "Przenieś listę anime z OgladajAnime na AnimeZone.",
+  "permissions": [
+    "https://ogladajanime.pl/*",
+    "https://www.animezone.pl/*"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "default_title": "OA -> AZ",
+    "default_icon": {
+      "192": "assets/icon-192.png",
+      "512": "assets/icon-512.png"
+    }
+  },
+
+  "icons": {
+    "192": "assets/icon-192.png",
+    "512": "assets/icon-512.png"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{f91ad554-18a7-4082-89aa-eb31bc15043f}",
+      "update_url": "https://addons.necodeo.com/updates.json",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

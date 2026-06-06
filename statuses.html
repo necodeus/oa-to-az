@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OA -> AZ</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="app-header">
+      <img class="app-header-logo" src="assets/logo.png" alt="" aria-hidden="true" />
+      <div>
+        <h1 class="app-header-title">Przenoszenie danych konta</h1>
+        <p class="app-header-desc">Przenieś oceny i statusy z innego serwisu anime</p>
+      </div>
+    </section>
+
+    <nav class="page-nav" aria-label="Sekcje migracji">
+      <a class="page-tab" href="ratings.html">Oceny</a>
+      <span class="page-tab active" aria-current="page">
+        Statusy
+        <button type="button" id="settingsBtn" class="tab-settings"
+                aria-label="Ustawienia mapowania" title="Ustawienia mapowania">
+          <img src="assets/gear.svg" alt="" />
+        </button>
+      </span>
+    </nav>
+
+    <header class="top-panel">
+      <section class="profiles" aria-label="Profile migracji">
+        <article class="profile-card">
+          <img class="avatar" src="assets/oa.png" alt="" aria-hidden="true" />
+          <div>
+            <p class="eyebrow">Źródło</p>
+            <h1>ogladajanime.pl</h1>
+            <p id="oaProfile" class="profile-id">wykrywam…</p>
+          </div>
+        </article>
+
+        <div class="profile-bridge" aria-hidden="true">
+          <img class="bridge-icon" src="assets/arrow-right.svg" alt="" />
+        </div>
+
+        <article class="profile-card">
+          <img class="avatar" src="assets/az.svg" alt="" aria-hidden="true" />
+          <div>
+            <p class="eyebrow">Cel</p>
+            <h2>animezone.pl</h2>
+            <p id="azProfile" class="profile-id">wykrywam…</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="summary-area" aria-label="Podsumowanie migracji">
+        <div id="summaryCards" class="summary-cards" hidden></div>
+        <article id="progressCard" class="progress-card" hidden>
+          <p class="eyebrow">Ogólna zgodność</p>
+          <strong id="progressPercent">0%</strong>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressFill"></span>
+          </div>
+        </article>
+      </section>
+    </header>
+
+    <p id="status" class="status"></p>
+
+    <section id="authNotice" class="auth-notice" aria-live="polite" hidden>
+      <div class="auth-icon" aria-hidden="true">
+        <img src="assets/exclamation.svg" alt="" />
+      </div>
+      <strong id="authText" class="auth-text">Zaloguj się, aby kontynuować.</strong>
+    </section>
+
+    <nav id="filters" class="filters" aria-label="Filtry wyników" hidden>
+      <button type="button" class="filter-btn active" data-filter="all">
+        <span class="filter-icon"><img src="assets/grid.svg" alt="" /></span>
+        Wszystkie
+        <strong>0</strong>
+      </button>
+      <button type="button" class="filter-btn" data-filter="transfer">
+        <span class="filter-icon"><img src="assets/arrow-right.svg" alt="" /></span>
+        Do przeniesienia
+        <strong>0</strong>
+      </button>
+      <button type="button" class="filter-btn" data-filter="match">
+        <span class="filter-icon"><img src="assets/check.svg" alt="" /></span>
+        Zgodne
+        <strong>0</strong>
+      </button>
+      <button type="button" class="filter-btn" data-filter="conflict">
+        <span class="filter-icon"><img src="assets/exclamation.svg" alt="" /></span>
+        Konflikty
+        <strong>0</strong>
+      </button>
+      <button type="button" class="filter-btn" data-filter="unmatched">
+        <span class="filter-icon"><img src="assets/question.svg" alt="" /></span>
+        Bez dopasowania
+        <strong>0</strong>
+      </button>
+    </nav>
+
+    <section id="results" class="result-list" aria-live="polite" hidden></section>
+  </main>
+
+  <footer id="migrationBar" class="migration-bar" hidden>
+    <div class="migration-bar-inner">
+      <div class="migration-info">
+        <img class="migration-info-icon" src="assets/info.svg" alt="" aria-hidden="true" />
+        <div>
+          <strong id="migrationTitle">Gotowe do przeniesienia</strong>
+          <p id="migrationMeta">Przeniesione zostaną tylko pozycje bez konfliktu.</p>
+        </div>
+      </div>
+      <button id="migrateBtn" type="button">
+        <img class="btn-icon" src="assets/rocket.svg" alt="" />
+        Rozpocznij przenoszenie
+      </button>
+    </div>
+  </footer>
+
+  <div id="settingsModal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-head">
+        <h2 id="settingsTitle">Mapowanie statusów</h2>
+        <button type="button" id="settingsClose" class="modal-close" aria-label="Zamknij">×</button>
+      </div>
+      <p class="modal-desc">
+        Wybierz, na jaki status AnimeZone trafia każdy status OgladajAnime.
+        AZ ma tylko Oglądam i Planuję; „Pomiń" wyklucza dany status z migracji.
+      </p>
+      <div id="settingsRows" class="settings-rows"></div>
+      <div class="modal-foot">
+        <button type="button" id="settingsReset" class="action-btn neutral modal-reset">Przywróć domyślne</button>
+        <button type="button" id="settingsCancel" class="action-btn neutral">Anuluj</button>
+        <button type="button" id="settingsSave" class="action-btn ok">Zapisz i przeładuj</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="statuses.js"></script>
+</body>
+</html>
