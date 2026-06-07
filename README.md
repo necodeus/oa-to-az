@@ -1,6 +1,6 @@
 # oa-to-az
 
-Rozszerzenie do Firefoksa umożliwiające przeniesienie **ocen i statusów** —
+Rozszerzenie do Firefoksa umożliwiające przeniesienie **ocen i statusów**
 z [ogladajanime.pl](https://ogladajanime.pl) na [animezone.pl](https://www.animezone.pl).
 
 ## Co jest potrzebne
